@@ -4,6 +4,7 @@ export type Flower = {
   price: number;
   imageUrl: string;
   shopId: number;
+  isFavorite?: boolean;
   dateAdded: string;
 };
 

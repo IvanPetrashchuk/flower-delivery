@@ -1,10 +1,18 @@
+// src/components/ui/Header.tsx
 "use client";
 
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Header() {
+type HeaderProps = {
+  onSortByPrice: () => void;
+  onSortByDate: () => void;
+  onSortByFavorites: () => void;
+  sortBy: string;
+};
+
+export default function Header({ onSortByPrice, onSortByDate, onSortByFavorites, sortBy }: HeaderProps) {
   const pathname = usePathname();
   const isShopActive = pathname === "/";
   const isCartActive = pathname === "/cart";
@@ -33,8 +41,30 @@ export default function Header() {
         </nav>
       </div>
       <div className="flex items-center space-x-4 text-sm text-gray-500">
-        <span className="cursor-pointer hover:text-gray-900 transition-colors duration-200">Sort by price</span>
-        <span className="cursor-pointer hover:text-gray-900 transition-colors duration-200">Sort by date</span>
+        <span
+          className={`cursor-pointer transition-colors duration-200 ${
+            sortBy === "price" ? "font-bold text-gray-900" : "hover:text-gray-900"
+          }`}
+          onClick={onSortByPrice}
+        >
+          Sort by price
+        </span>
+        <span
+          className={`cursor-pointer transition-colors duration-200 ${
+            sortBy === "date" ? "font-bold text-gray-900" : "hover:text-gray-900"
+          }`}
+          onClick={onSortByDate}
+        >
+          Sort by date
+        </span>
+        <span
+          className={`cursor-pointer transition-colors duration-200 ${
+            sortBy === "favorites" ? "font-bold text-gray-900" : "hover:text-gray-900"
+          }`}
+          onClick={onSortByFavorites}
+        >
+          Sort by favorites
+        </span>
       </div>
     </header>
   );

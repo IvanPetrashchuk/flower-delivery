@@ -1,4 +1,4 @@
-// init-db.ts
+// src/app/lib/init-db.ts
 
 import Database from "better-sqlite3";
 import path from "path";
@@ -201,9 +201,14 @@ const flowers: Flower[] = [
     dateAdded: new Date().toISOString(),
   },
   { id: 32, name: "Pansy", price: 5.1, imageUrl: "/images/pansy.jpg", shopId: 3, dateAdded: new Date().toISOString() },
-];
+].map((flower) => {
+  if ([1, 5, 8, 12, 17, 20, 25, 29].includes(flower.id)) {
+    return { ...flower, isFavorite: true };
+  }
+  return flower;
+});
 
-function setupDatabase() {
+async function setupDatabase() {
   const dbUrl = process.env.DATABASE_URL;
   if (!dbUrl) {
     console.error("DATABASE_URL is not defined in .env file!");
@@ -211,8 +216,8 @@ function setupDatabase() {
   }
 
   const dbDir = path.dirname(dbUrl);
-
   let db: Database.Database | null = null;
+
   try {
     if (!fs.existsSync(dbDir)) {
       fs.mkdirSync(dbDir, { recursive: true });
