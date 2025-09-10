@@ -57,7 +57,6 @@ export default function CartItemComponent({ item, onUpdateQuantity, onRemoveItem
           +
         </button>
       </div>
-      {/* Кнопка "хрестик" */}
       <button onClick={handleRemove} className="text-gray-400 hover:text-red-500 transition-colors">
         <svg
           xmlns="http://www.w3.org/2000/svg"

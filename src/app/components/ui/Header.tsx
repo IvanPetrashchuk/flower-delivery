@@ -11,7 +11,12 @@ type HeaderProps = {
   sortBy: string;
 };
 
-export default function Header({ onSortByPrice, onSortByDate, onSortByFavorites, sortBy }: HeaderProps) {
+export default function Header({
+  onSortByPrice = () => {},
+  onSortByDate = () => {},
+  onSortByFavorites = () => {},
+  sortBy = "",
+}: HeaderProps) {
   const pathname = usePathname();
   const isShopActive = pathname === "/";
   const isCartActive = pathname === "/cart";

@@ -1,28 +1,30 @@
-// app/context/CartContext.tsx
+
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Flower, CartItem } from "@app/lib/types";
 
-// Визначаємо типи для контексту
 type CartContextType = {
   cart: CartItem[];
   addToCart: (flower: Flower) => void;
   removeFromCart: (flowerId: number) => void;
   updateItemCount: (flowerId: number, count: number) => void;
   clearCart: () => void;
+  isLoaded: boolean; 
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false); 
 
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
+    setIsLoaded(true); 
   }, []);
 
   useEffect(() => {
@@ -63,6 +65,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     removeFromCart,
     updateItemCount,
     clearCart,
+    isLoaded,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

@@ -1,3 +1,4 @@
+// src/components/ui/FlowerCard.tsx
 "use client";
 
 import React from "react";
@@ -9,9 +10,10 @@ import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 type FlowerCardProps = {
   flower: Flower;
   toggleFavorite: (flowerId: number) => void;
+  onAddToCart: (flower: Flower) => void;
 };
 
-export default function FlowerCard({ flower, toggleFavorite }: FlowerCardProps) {
+export default function FlowerCard({ flower, toggleFavorite, onAddToCart }: FlowerCardProps) {
   return (
     <div className="relative bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col items-center">
       <button
@@ -37,7 +39,10 @@ export default function FlowerCard({ flower, toggleFavorite }: FlowerCardProps) 
       </div>
       <h3 className="text-xl font-medium">{flower.name}</h3>
       <p className="text-lg text-gray-600 mt-1">${flower.price.toFixed(2)}</p>
-      <button className="mt-4 w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200">
+      <button 
+        onClick={() => onAddToCart(flower)}
+        className="mt-4 w-full py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+      >
         add to Cart
       </button>
     </div>

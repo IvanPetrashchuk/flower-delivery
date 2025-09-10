@@ -1,10 +1,12 @@
+// src/components/HomePageContent.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import ShopSidebar from "./ui/ShopSidebar";
 import FlowerCard from "./ui/FlowerCard";
 import Header from "./ui/Header";
-import { Flower, Shop } from "../lib/types";
+import { Flower, Shop,CartItem  } from "../lib/types";
+import { addToCart, getCart } from "@app/lib/cart";
 
 type HomePageContentProps = {
   shops: Shop[];
@@ -24,12 +26,14 @@ export default function HomePageContent({
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState<string>('');
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const savedFavorites = localStorage.getItem("favorites");
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites));
     }
+    setCart(getCart());
   }, []);
 
   useEffect(() => {
@@ -74,6 +78,12 @@ export default function HomePageContent({
     });
     setFlowers(sortedFlowers);
   };
+
+  const handleAddToCart = (flower: Flower) => {
+    addToCart(flower);
+    setCart(getCart()); 
+    alert("Додано до кошика")
+  };
   
   const flowersWithFavorites = flowers.map(flower => ({
     ...flower,
@@ -101,6 +111,7 @@ export default function HomePageContent({
                 key={flower.id}
                 flower={flower}
                 toggleFavorite={toggleFavorite}
+                onAddToCart={handleAddToCart}
               />
             ))}
           </div>
