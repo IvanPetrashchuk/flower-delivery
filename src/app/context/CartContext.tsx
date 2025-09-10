@@ -13,14 +13,11 @@ type CartContextType = {
   clearCart: () => void;
 };
 
-// Створюємо сам контекст
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// Створюємо провайдер, який буде "обгортати" наш застосунок
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  // Завантажуємо кошик з локального сховища при першому завантаженні сторінки
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
@@ -28,20 +25,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Зберігаємо кошик у локальному сховищі щоразу, коли він змінюється
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // Функції для роботи з кошиком
   const addToCart = (flower: Flower) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.flower.id === flower.id);
       if (existingItem) {
-        // Якщо товар вже є, оновлюємо кількість
         return prevCart.map((item) => (item.flower.id === flower.id ? { ...item, count: item.count + 1 } : item));
       } else {
-        // Якщо товару немає, додаємо новий
         return [...prevCart, { flower, count: 1 }];
       }
     });
@@ -75,7 +68,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
-// Створюємо хук для зручного використання контексту
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {

@@ -1,4 +1,3 @@
-// src/app/page.tsx
 import React from "react";
 import HomePageContent from "@app/components/HomePageContent";
 import { getShops, getFlowersByShop } from "@app/lib/data";

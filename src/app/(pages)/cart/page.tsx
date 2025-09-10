@@ -1,4 +1,3 @@
-// src/app/cart/page.tsx
 "use client";
 
 import React from "react";
@@ -6,9 +5,9 @@ import Header from "@/app/components/ui/Header";
 import CartItemComponent from "@app/components/ui/CartItem";
 import OrderForm from "@app/components/ui/OrderForm";
 import { useCart } from "@app/context/CartContext";
+import {Flower} from "@app/lib/types"
 
 export default function ShoppingCartPage() {
-  // Використовуємо хук useCart для отримання даних і функцій
   const { cart, updateItemCount, removeFromCart, clearCart } = useCart();
 
   const totalPrice = cart.reduce((sum, item) => sum + item.flower.price * item.count, 0);
@@ -17,7 +16,7 @@ export default function ShoppingCartPage() {
     updateItemCount(flowerId, newQuantity);
   };
 
-  const handleSubmitOrder = (formData: any) => {
+  const handleSubmitOrder = (formData: Flower) => {
     console.log("Submitting order:", formData);
     alert("Order submitted successfully!");
     clearCart();

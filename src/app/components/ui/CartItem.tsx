@@ -1,4 +1,3 @@
-// src/components/ui/CartItem.tsx
 "use client";
 
 import React from "react";
@@ -8,7 +7,7 @@ import { CartItem } from "@app/lib/types";
 interface CartItemProps {
   item: CartItem;
   onUpdateQuantity: (flowerId: number, newQuantity: number) => void;
-  onRemoveItem: (flowerId: number) => void; // Додаємо новий пропс для видалення
+  onRemoveItem: (flowerId: number) => void; 
 }
 
 export default function CartItemComponent({ item, onUpdateQuantity, onRemoveItem }: CartItemProps) {

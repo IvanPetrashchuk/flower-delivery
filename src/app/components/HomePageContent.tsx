@@ -1,4 +1,3 @@
-// src/components/HomePageContent.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -62,12 +61,12 @@ export default function HomePageContent({
       if (criteria === 'favorites') {
         const aIsFavorite = favorites.includes(a.id) ? 1 : 0;
         const bIsFavorite = favorites.includes(b.id) ? 1 : 0;
-        return bIsFavorite - aIsFavorite; // Улюблені йдуть першими
+        return bIsFavorite - aIsFavorite; 
       }
       if (criteria === 'price') {
         return a.price - b.price;
       }
-      // Сортування за датою, припускаючи, що у вашому типі Flower є `dateAdded`
+      
       if (criteria === 'date') {
         return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
       }
